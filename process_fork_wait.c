@@ -5,6 +5,10 @@
  * ->fork(): http://pubs.opengroup.org/onlinepubs/009695399/functions/fork.html
  * ->wait(): http://pubs.opengroup.org/onlinepubs/009695399/functions/wait.html
  * ->getpid(): http://pubs.opengroup.org/onlinepubs/009695399/functions/getpid.html
+ * ->sleep(): //http://pubs.opengroup.org/onlinepubs/007904875/functions/sleep.html
+ *
+ ********************************
+ * You can use top to check the process id of the child and parent processes.
  * */
 
 #include <sys/types.h>
@@ -13,20 +17,23 @@
 #include <unistd.h>
 
 int main() {
-    pid_t pid;
+    pid_t ret;
 
-    pid = fork();       // Create a child process
+    ret = fork();       // Create a child process
+    pid_t mypid = getpid();
 
-    if (pid < 0) {      // Error occurred
+    if (ret < 0) {      // Error occurred
         fprintf(stderr, "Fork failed");
         return 1;
     }
-    else if (pid == 0) {    // Child process
-        printf("Child: listing of current directory\n\n");
-        execlp("/bin/ls", "ls", NULL);
+    else if (ret == 0) {    // Child process
+        printf("Child, pid = %d.\n\n", mypid);
+        sleep(10);//http://pubs.opengroup.org/onlinepubs/007904875/functions/sleep.html
+        //execlp("/bin/ls", "ls", NULL);
     }
     else {              // Parent process—wait for child to complete
-        printf("Parent: waits for child to complete\n\n");
+        printf("Parent, pid = %d.\n\n", mypid);
+        sleep(10);
         wait(NULL);
         printf("Child complete\n\n");
     }
