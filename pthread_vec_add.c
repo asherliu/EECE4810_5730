@@ -1,6 +1,6 @@
 /******************************************************************************
- * Compilation command: gcc -lpthread pthread_hello_world.c -o pthread_hello_world.bin
- * Execution: ./pthread_hello_world.bin
+ * Compilation command: gcc -lpthread pthread_vec_add.c -o pthread_vec_add.bin
+ * Execution: ./pthread_vec_add.bin
  * ******************************************************************************/
 
 
